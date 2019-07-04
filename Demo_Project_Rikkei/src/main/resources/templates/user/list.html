@@ -1,0 +1,107 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>View</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+</head>
+<div th:replace="temps/header :: header"></div>
+<div class="main-panel">
+	<div class="content-wrapper" style="overflow: auto; height: 500px;">
+		
+					<div class="card-body">
+						<h4 class="card-title">List User</h4>
+						<div th:if="${msg != null}">
+							<h4 style="margin-top: 20px;" class="text-success"
+								th:text="${msg}"></h4>
+						</div>
+						<a href="/admin/user/create" class="btn btn-success"
+							style="margin-bottom: 10px;">Create</a>
+
+						<div class="table-responsive">
+							<div
+								style="width: 1500px; height: 330px; overflow: auto; overflow-x: auto;">
+								<table class="table table-striped">
+									<thead>
+										<tr style="background-color: grey;">
+											<th>ID</th>
+											<th>Name</th>
+											<th>Role</th>
+											<th>Creat at</th>
+											<th>Creat by</th>
+											<th>Update at</th>
+											<th>Update by</th>
+											<th>Status</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="value : ${list}">
+											<tr th:if="${value.status==1 and value.delFlag== false}">
+												<td th:text="${value.idUser}"></td>
+												<td th:text="${value.nameUser}"></td>
+												<td th:text="${value.userRole.nameRole}"></td>
+												<td th:text="${value.creatAt}"></td>
+												<td th:text="${value.creatBy}"></td>
+												<td th:text="${value.updateAt}"></td>
+												<td th:text="${value.updateBy}"></td>
+												<td style="color: green;">Hoạt động</td>
+												<td><a
+													th:href="@{/admin/user/edit/{id}(id=${value.idUser})}"
+													class="mdi mdi-lead-pencil" title="edit"
+													style="margin: 5px;"></a> <a
+													class="mdi mdi-minus-circle-outline" title="delete"
+													style="margin: 5px;"
+													th:onclick="'deleteUser(\''+ ${value.id} + '\');'"></a></td>
+											</tr>
+										</th:block>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- The Modal -->
+						<div class="modal" id="myModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">Delete</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+
+									<!-- Modal body -->
+									<div class="modal-body">Are you sure ?</div>
+									<form th:action="@{/admin/user/delete}" method="post">
+										<input id="id" name="id" class="form-control" type="hidden">
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-dark">Delete</button>
+											<button type="button" class="btn btn-dark"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+					<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+					<script
+						src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+					<script type="text/javascript">
+						deleteUser = function(id) {
+							console.log('id deleted: ' + id);
+							$('#id').val(id);
+							$('#myModal').modal();
+						}
+						
+						
+					</script>
+					<div th:replace="temps/footer :: footer"></div>
+</html>

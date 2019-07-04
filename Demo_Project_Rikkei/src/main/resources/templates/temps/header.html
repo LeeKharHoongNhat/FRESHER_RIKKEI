@@ -1,0 +1,142 @@
+<th:block th:fragment="header">
+  <head>
+<!-- Required meta tags -->
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Home</title>
+
+
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- plugins:css -->
+<link rel="stylesheet"
+  th:href="@{ /vendors/iconfonts/mdi/css/materialdesignicons.min.css}" />
+
+<link rel="stylesheet" th:href="@{ /vendors/css/vendor.bundle.base.css}" />
+
+<!-- endinject -->
+<!-- inject:css -->
+<link rel="stylesheet" th:href="@{ /css/style.css}" />
+
+<link rel="stylesheet" th:href="@{ /css/fullcalendar.css}" />
+
+<!-- endinject -->
+<link rel="shortcut icon" th:href="@{ /images/favicon.png}" />
+
+
+
+<!-- Timesheet -->
+<link rel="stylesheet" th:href="@{/css/timesheet.css}" />
+
+<script type="text/javascript" th:src="@{/js/timesheet.js}">
+
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
+  type="text/javascript"></script>
+<!-- end Timesheet -->
+
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav
+        class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="#"><img
+            th:src="@{ /images/Logo_Rikkei.png}" style="height: 60px;"></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img
+            th:src="@{/images/logo-mini.svg}" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control bg-transparent border-0"
+                  placeholder="Search projects">
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-logout d-none d-lg-block" title="log out">
+              <form action="#" th:action="@{/logout}" method="POST">
+                <button type="submit"
+                  class="btn btn-gradient-dark btn-rounded btn-icon">
+                  <i class="mdi mdi-power"></i>
+                </button>
+              </form> <!--  <a
+              class="nav-link" th:href="@{/logout}"> <i class="mdi mdi-power"></i>
+            </a> -->
+            </li>
+
+          </ul>
+          <button
+            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+            type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+
+            <li class="nav-item nav-profile"><a id="my_account"
+              th:href="@{/user/getthisuser}" class="nav-link">
+                <div class="nav-profile-image">
+                  <img th:src="@{/images/faces/goku.png}" alt="profile"> <span
+                    class="login-status online"></span>
+                  <!--change to offline or busy as needed-->
+                </div> <span class="font-weight-bold mb-2" sec:authentication="name"
+                style="padding: 10px;"></span> <span
+                class="text-secondary text-small"
+                sec:authentication="principal.authorities"></span> <i
+                class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a></li>
+
+            <!-- start home  -->
+            <li class="nav-item"><a id="home_button" class="nav-link"
+              th:href="@{/}"> <span class="menu-title">Home</span> <i
+                class="mdi mdi-home menu-icon"></i>
+            </a></li>
+            <!-- end home -->
+
+            <div sec:authorize="hasRole('ADMIN')">
+              <!-- start Account  -->
+              <li class="nav-item"><a class="nav-link" id="list_account"
+                th:href="@{/admin/user/listuser/1}"> <span
+                  class="menu-title">Account</span> <i
+                  class="mdi mdi-contacts menu-icon"></i>
+              </a></li>
+              </li>
+              <!-- end Account  -->
+            </div>
+
+            <!-- start Task  -->
+            <li class="nav-item"><a id="task_button" class="nav-link"
+              th:href="@{/task/gettask/0}"> <span class="menu-title">Task</span>
+                <i class="mdi mdi-contacts menu-icon"></i>
+            </a></li>
+            <!-- end Task  -->
+
+            <!-- start Test  -->
+            <!-- <li class="nav-item"><a class="nav-link" th:href="@{/test}">
+                <span class="menu-title">Test</span> <i
+                class="mdi mdi-contacts menu-icon"></i>
+            </a></li> -->
+            <!-- end Test  -->
+
+          </ul>
+        </nav>
+</th:block>

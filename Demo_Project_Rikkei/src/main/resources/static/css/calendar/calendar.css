@@ -1,0 +1,139 @@
+body {
+	background-color: #696969;
+}
+
+table {
+	background-color: white;
+	border: 1px solid #1782cc;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table td {
+	padding: 0;
+	margin: 0;
+	border: 1px solid #999;
+	background-color: #e6e0e0;
+}
+
+table td div div {
+	transition: 0.3s;
+	transition: transform .2s;
+}
+
+table td div div:hover {
+	background-color: #6c757d;
+	color: white;
+	border-radius: 10px;
+	transform: scale(1.5);
+}
+
+table th {
+	background-color: #6c757d;
+	min-width: 165px;
+	width: 165px;
+	border: 1px solid #999;
+	text-align: center;
+	border: 1px solid #999;
+}
+
+table th:hover{
+	border-radius: 40px;
+	transition: 0.3s;
+}
+table th p {
+	color: white;
+}
+
+.month {
+	padding: 70px 25px;
+	width: 1160px;
+	height: 400px;
+	background: #6c757d;
+	background-image: url("../../images/calendar/month.jpg");
+	background-size: 100%;
+}
+
+.month ul {
+	margin: 0;
+	padding: 0;
+}
+
+.month ul li {
+	color: white;
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}
+
+.month .prev {
+	float: left;
+	padding-top: 125px;
+	transition: transform .2s;
+}
+
+.month .prev:hover {
+	color: red;
+
+}
+
+.month .next {
+	float: right;
+	padding-top: 125px;
+	transition: transform .2s;
+}
+
+.month .next:hover {
+	color: red;
+	
+}
+
+.month li {
+	text-align: center;
+	transition: transform .2s;
+}
+
+.month li.current:hover {
+	color: red;
+}
+.month li .current{
+	text-decoration: none;
+	color: white;
+}
+ul {
+	list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+
+#time_gmt {
+	text-align: center;
+	padding-top: 125px;
+}
+
+#timenowth {
+	background-color: white;
+	border: solid;
+}
+
+#timenowp {
+	color: blue;
+}
+
+#timenowa {
+	color: black;
+}
+#nonea {
+	color: white;
+}
+#timenowth:hover {
+	background-color: 	#D2B48C;
+	border-color: white;
+}
+#tasknow{
+background-color: #00FF7F;
+border-radius: 10px;
+}
+
+

@@ -1,0 +1,315 @@
+
+
+
+
+
+
+<!-- start tab edit Task -->
+<div>
+  <div class="modal-dialog" style="width: 1000px; margin-right: 630px;">
+    <div class="modal-content" style="width: 1000px;">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Task</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body" id="msgNotice"></div>
+      <form class="forms-sample" th:action="@{/task/saveupdate}"
+        th:object="${task}" method="post" enctype="multipart/form-data">
+
+        <input id="id" name="idTask" type="hidden">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Người tạo: </label> <strong><p
+                    th:text="${task.userCase.nameUser}"></p></strong>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Tiêu đề công
+                      việc</label>
+                    <div class="col-sm-9">
+                      <input type="text" th:field="*{title}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nội dung chi
+                      tiết</label>
+                    <div class="col-sm-9">
+                      <input type="text" th:field="*{detail}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Địa điểm</label>
+                    <div class="col-sm-9">
+                      <input type="text" th:field="*{location}"
+                        class="form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Ảnh Cũ</label>
+                    <div class="col-sm-9">
+                      <img th:src="@{D://Calendar_Rikkei/{image}(image= ${task.image})}" alt="no image"
+                        id="old_img" class="img-fluid"/>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Ảnh mới</label>
+                    <div class="col-sm-9">
+                      <!-- <input type="text" th:field="*{image}"
+                              class="form-control" /> -->
+
+                      <input id="imgUrl" class="form-control" type="file"
+                        name="file" /> <br> <img id="img" src="#"
+                        alt="your image" width="300" height="150" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Cả Ngày</label>
+                    <div class="col-sm-4">
+                      <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input"
+                          th:checked="*{allDay}"> <i class="input-helper"></i>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Thời gian bắt
+                      đầu</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" type="datetime-local"
+                        th:field="*{startTime}" /> <br />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Thời gian kết
+                      thúc</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" type="datetime-local"
+                        th:field="*{endTime}" /> <br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Lặp lại</label>
+                    <div class="col-sm-9">
+                      <select th:field="*{loopTask}" onchange="loopCheck(this);"
+                        class="form-control">
+                        <option th:value="'none'" selected>Không</option>
+                        <option th:value="'day'">Hàng ngày</option>
+                        <option th:value="'week'">Hàng tuần</option>
+                        <option th:value="'month'">Hàng tháng</option>
+                        <option th:value="'year'">Hàng năm</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- *************** start lặp ***************** -->
+
+              <div class="row" id="loopWeek" style="display: none;">
+                <div class="col-md-12">
+                  <label class="col-sm-3 col-form-label">Thời gian lặp</label> <input
+                    type="hidden" id="chooseDay" th:field="*{loopWeek}" />
+                  <div class="form-group row">
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="2"><i
+                          class="input-helper"></i> Thứ 2
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="3"><i
+                          class="input-helper"></i> Thứ 3
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="4"><i
+                          class="input-helper"></i> Thứ 4
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="5"><i
+                          class="input-helper"></i> Thứ 5
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="6"><i
+                          class="input-helper"></i> Thứ 6
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="7"><i
+                          class="input-helper"></i> Thứ 7
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-check">
+                        <label class="form-check-label"> <input
+                          type="checkbox" class="form-check-input membershipRadios"
+                          id="membershipRadios" value="1"><i
+                          class="input-helper"></i> Chủ Nhật
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kết thúc lặp</label>
+                    <div class="col-sm-9">
+                      <input id="endLoopTask" class="form-control" type="date"
+                        th:field="*{endLoopTask}" disabled />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- *********************** end lặp ***************************  -->
+
+
+              <p class="card-description">Người tham dự</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Người tham dự 1</label>
+                    <div class="col-sm-9">
+                      <select onchange="disabledOption1()" id="participants1"
+                        th:field="*{participants1}" class="form-control">
+                        <option th:value="'none'" th:text="-----"></option>
+                        <option th:each="user : ${listuser}"
+                          th:value="${user.idUser}" th:text="${user.nameUser}"
+                          value="" />
+                      </select>
+                      <!-- <input type="text" th:field="*{participants1}"
+                              class="form-control" /> -->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Người tham dự 2</label>
+                    <div class="col-sm-9">
+                      <select onchange="disabledOption2()" id="participants2"
+                        th:field="*{participants2}" class="form-control" disabled>
+                        <option th:value="'none'" th:text="-----"></option>
+                        <option th:each="user : ${listuser}"
+                          th:value="${user.idUser}" th:text="${user.nameUser}"
+                          value="" />
+                      </select>
+                      <!-- <input type="text" th:field="*{participants2}"
+                              class="form-control" /> -->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Người tham dự 3</label>
+                    <div class="col-sm-9">
+                      <select id="participants3" th:field="*{participants3}"
+                        class="form-control" disabled>
+                        <option th:value="'none'" th:text="-----"></option>
+                        <option th:each="user : ${listuser}"
+                          th:value="${user.idUser}" th:text="${user.nameUser}"
+                          value="" />
+                      </select>
+                      <!-- <input type="text" th:field="*{participants3}"
+                                class="form-control" /> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark">Done</button>
+          <button type="submit" class="btn btn-dark">Edit</button>
+          <button type="submit" class="btn btn-dark">Delete</button>
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end tab edit Task -->
+
+<script type="text/javascript">
+  //bật tắt input kết thúc lặp
+  function loopCheck(that) {
+    if (that.value == "none") {
+      document.getElementById("endLoopTask").disabled = true;
+      document.getElementById("loopWeek").style.display = "none";
+      document.getElementById('endLoopTask').type = 'date';
+    } else {
+      if (that.value == "week") {
+        document.getElementById("endLoopTask").disabled = false;
+        document.getElementById("loopWeek").style.display = "block";
+      } else {
+        document.getElementById("endLoopTask").disabled = false;
+        document.getElementById("loopWeek").style.display = "none";
+      }
+    }
+  }
+</script>

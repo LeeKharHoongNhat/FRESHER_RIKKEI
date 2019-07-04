@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Task</title>
+<link rel="stylesheet" type="text/css"
+  th:href="@{/css/calendar/calendar.css}">
+
+</head>
+<div th:replace="temps/header :: header"></div>
+
+
+<div class="main-panel">
+  <div class="content-wrapper" style="overflow: auto; height: 500px;">
+    <div class="container">
+      <div class="month">
+        <ul>
+          <li class="prev" th:onclick="'count(\''+ ${week -1} + '\');'"><a>&#10094;</a></li>
+          <li class="next" th:onclick="'count(\''+ ${week +1} + '\');'"><a>&#10095;</a></li>
+          <li id="time_gmt"><h3 th:text="${monthnow}"></h3> <br>
+            <h2 id="timenow" style="text-align: center;"></h2></li>
+          <li th:onclick="'count(\''+ ${0} + '\');'"><a id="to_day"
+            class="current" th:text="${daynow}"></a></li>
+          <li><a onclick="addTask()" id="create_task" class="current"><i
+              id="open_add_task" class="mdi mdi-plus-circle-outline"></i></a></li>
+        </ul>
+      </div>
+      <input type="hidden" name="week" id="week" />
+      <div id="listtask"
+        style="height: 300px; width: 1180px; overflow-y: auto;"></div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+    src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+
+  </script>
+  <script type="text/javascript"
+    src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+
+  </script>
+  <script th:src="@{/js/calendar/calendar.js}"></script>
+  <script type="text/javascript">
+    $(document).ready(
+        function() {
+          $('start_time').val(
+              new Date().toJSON().slice(0, 19));
+        });
+  </script>
+  <div th:replace="temps/footer :: footer"></div>
+</html>
